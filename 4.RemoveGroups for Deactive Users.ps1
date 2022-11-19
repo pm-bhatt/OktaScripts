@@ -11,7 +11,7 @@ Connect-Okta "YOUR TOKEN" "https://youroktadomain.okta.com"
 $page = Get-OktaUsers -filter 'status eq "DEPROVISIONED"' # NOTE : This will get only first 200 users in the list
 $users = $page.objects
 #2. condition in-case there are no de-activated users, print that no deactivated  users are there.
-if ($null -eq $page.objects) 
+if ($null -eq $users) 
 { 
     Write-Output "No De-activated Users at  $(Get-Date)"
 }
@@ -20,12 +20,12 @@ else
 {
     foreach ($user in $users) 
     {
-        $getgroups = Get-OktaUserGroups($user.id)
+        $getgroups = Get-OktaUserGroups $user.id
         $groups = $getgroups
         #for ($i = 0; $i -le $groups.Count; $i++) 
-        foreach($group in $groups) 
+        foreach ($group in $groups) 
         {
-            if ($null -ne $user.id) #checkes if user id is null or not
+            if ($null -ne $user.id) #checks if user id is null or not
             {
                 if ($null -ne $group.id) #checks if group-id is null or not
                 {
