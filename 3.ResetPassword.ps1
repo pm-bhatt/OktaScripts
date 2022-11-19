@@ -12,6 +12,6 @@ function Remove-OktaUserSession($id) {
 foreach ($csvname in $csv)
 {
     $id=$csvname.OktaID
-    Set-OktaUserExpirePassword($id) # This will Expire the user's current password and it will ask end-user to change tha password at next login attempt
-    Remove-OktaUserSession($id) # This will clear the session for user so they have to forcefully login to okta
+    Set-OktaUserExpirePassword $id # This will Expire the user's current password and it will ask end-user to change tha password at next login attempt
+    Remove-OktaUserSession $id # This will clear the session for user so they have to forcefully login to okta
 }
